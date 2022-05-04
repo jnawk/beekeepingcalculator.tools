@@ -5,11 +5,12 @@
     "beekeepingcalculators.com": "bin/beekeepingcalculators.com.js"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsc; bash -c 'cd website; npm run build'; cdk synth",
     "watch": "tsc -w",
     "test": "jest",
     "cdk": "cdk",
-    "lint": "eslint . --ext .ts,.tsx"
+    "lint:cdk": "eslint . --ext .ts",
+    "lint:website": "cd website; npm run lint"
   },
   "devDependencies": {
     "@types/jest": "^26.0.10",
