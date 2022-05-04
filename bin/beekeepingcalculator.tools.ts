@@ -1,10 +1,14 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
-import { BeekeepingcalculatorsComStack } from '../lib/beekeepingcalculators.com-stack';
+import { PipelineStack } from '../lib/beekeepingcalculator.tools';
 
 const app = new cdk.App();
-new BeekeepingcalculatorsComStack(app, 'BeekeepingcalculatorsComStack', {
+new PipelineStack(app, 'BeekeepingcalculatorsPipeline', {
+  env: {
+    account: process.env.CDK_DEFAULT_ACCOUNT,
+    region: 'ap-southeast-2'
+  }
   /* If you don't specify 'env', this stack will be environment-agnostic.
    * Account/Region-dependent features and context lookups will not work,
    * but a single synthesized template can be deployed anywhere. */

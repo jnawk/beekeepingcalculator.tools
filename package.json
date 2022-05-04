@@ -5,7 +5,7 @@
     "beekeepingcalculators.com": "bin/beekeepingcalculators.com.js"
   },
   "scripts": {
-    "build": "tsc; bash -c 'cd website; npm run build'; cdk synth",
+    "build": "tsc; bash -c 'cd website; npm run build'",
     "watch": "tsc -w",
     "test": "jest",
     "cdk": "cdk",

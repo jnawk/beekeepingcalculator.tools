@@ -1,0 +1,10 @@
+{
+  "hosted-zone:account=232271975773:domainName=beekeepingcalculator.tools:region=us-east-1": {
+    "Id": "/hostedzone/Z010775325DSLIR0W1ZSQ",
+    "Name": "beekeepingcalculator.tools."
+  },
+  "hosted-zone:account=232271975773:domainName=beekeepingcalculator.tools:region=ap-southeast-2": {
+    "Id": "/hostedzone/Z010775325DSLIR0W1ZSQ",
+    "Name": "beekeepingcalculator.tools."
+  }
+}
