@@ -22,8 +22,9 @@
     "eslint-plugin-jsx-a11y": "^6",
     "eslint-plugin-react": "^7",
     "eslint-plugin-react-hooks": "^4",
-    "convert": "^4.5.0"
-
+    "convert": "^4.5.0",
+    "bootstrap": "^5",
+    "reactstrap": "^9"
   },
   "scripts": {
     "start": "react-scripts start",
