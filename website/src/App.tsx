@@ -5,7 +5,7 @@ import convert, { Converter, Volume } from 'convert';
 interface Volumes {
   litres?: string,
   fluidOunces?: string,
-  quarts?: string,
+  usQuarts?: string,
   usGallons?: string,
   imperialGallons?: string,
 }
@@ -30,7 +30,7 @@ function convertVolume(event: React.ChangeEvent<HTMLInputElement>, from: Volume)
   return {
     litres: convertToFixed(amount, from, 'litres'),
     fluidOunces: convertToFixed(amount, from, 'fl. oz.'),
-    quarts: convertToFixed(amount, from, 'quarts'),
+    usQuarts: convertToFixed(amount, from, 'US liquid quart'),
   };
 }
 
