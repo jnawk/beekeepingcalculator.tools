@@ -26,6 +26,7 @@ export class PipelineStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);  
       const pipeline = new pipelines.CodePipeline(this, "Pipeline", {
+          publishAssetsInParallel: false,
           synth: new pipelines.ShellStep("Synth", { input: pipelines.CodePipelineSource.connection(config.source_repository_path, config.source_repository_branch, {
             connectionArn: ssm.StringParameter.fromStringParameterName(this, "ConnectionArnParameter", config.connection_arn_parameter_name).stringValue
           }),
