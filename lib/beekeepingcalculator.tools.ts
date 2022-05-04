@@ -92,7 +92,7 @@ export class WebsiteStack extends Stack {
         service: "SSM",
         region: 'us-east-1',
         parameters: {
-          name: config.certificate_arn_parameter_name
+          Name: config.certificate_arn_parameter_name
         },physicalResourceId: custom_resources.PhysicalResourceId.of(config.certificate_arn_parameter_name),
       },
       policy: custom_resources.AwsCustomResourcePolicy.fromSdkCalls({resources:[
