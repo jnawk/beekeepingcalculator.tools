@@ -45,18 +45,19 @@ export class PipelineStack extends Stack {
 export class DeploymentStage extends Stage {
   constructor(scope: Construct, id: string, props?: StageProps) {
     super(scope, id, props);
-    new CertificateStack(this, "CertificateStack", {
+    const certificateStack = new CertificateStack(this, "CertificateStack", {
       env: {
         account: process.env.CDK_DEFAULT_ACCOUNT,
         region: 'us-east-1'
       }
     })
-    new WebsiteStack(this, "WebsiteStack", {
+    const websiteStack = new WebsiteStack(this, "WebsiteStack", {
       env: {
         account: process.env.CDK_DEFAULT_ACCOUNT,
         region: 'ap-southeast-2'
       }
     })
+    websiteStack.addDependency(certificateStack)
   }
 }
 
