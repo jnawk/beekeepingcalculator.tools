@@ -100,7 +100,7 @@ export class WebsiteStack extends Stack {
           "arn",
           cdk.Aws.PARTITION,
           "ssm",
-          cdk.Aws.REGION,
+          'us-east-1',
           cdk.Aws.ACCOUNT_ID,
           ["parameter", config.certificate_arn_parameter_name].join("")
         ].join(":")                
