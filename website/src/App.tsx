@@ -6,8 +6,8 @@ interface Volumes {
   litres?: string,
   fluidOunces?: string,
   quarts?: string,
-  usGalons?: string,
-  imperialGalons?: string,
+  usGallons?: string,
+  imperialGallons?: string,
 }
 
 interface AppState {
