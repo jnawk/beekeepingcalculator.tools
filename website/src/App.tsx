@@ -31,6 +31,8 @@ function convertVolume(event: React.ChangeEvent<HTMLInputElement>, from: Volume)
     litres: convertToFixed(amount, from, 'litres'),
     fluidOunces: convertToFixed(amount, from, 'fl. oz.'),
     usQuarts: convertToFixed(amount, from, 'US liquid quart'),
+    usGallons: convertToFixed(amount, from, "US liquid gallon"),
+    imperialGallons: convertToFixed(amount, from, "imperial gallon")
   };
 }
 
@@ -69,6 +71,43 @@ export default class App extends React.Component<Record<string, never>, AppState
             }}
           />
         </label>
+
+        <label htmlFor="usQuarts">
+          US Quarts
+          {' '}
+          <input
+            name="usQuarts"
+            value={volume?.usQuarts}
+            onChange={(event) => {
+              this.setState({ volume: convertVolume(event, 'US liquid quart') });
+            }}
+          />
+        </label>
+
+        <label htmlFor="usGallons">
+          US Gallons
+          {' '}
+          <input
+            name="usGallons"
+            value={volume?.usGallons}
+            onChange={(event) => {
+              this.setState({ volume: convertVolume(event, 'US liquid gallon') });
+            }}
+          />
+        </label>
+
+        <label htmlFor="imperialGallons">
+          Imperial Gallons
+          {' '}
+          <input
+            name="imperialGallons"
+            value={volume?.imperialGallons}
+            onChange={(event) => {
+              this.setState({ volume: convertVolume(event, 'imperial gallon') });
+            }}
+          />
+        </label>
+
       </>
     );
   }
