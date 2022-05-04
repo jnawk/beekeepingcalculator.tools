@@ -9,7 +9,7 @@
     "watch": "tsc -w",
     "test": "jest",
     "cdk": "cdk",
-    "lint": "eslint . --ext .ts"
+    "lint": "eslint . --ext .ts,.tsx"
   },
   "devDependencies": {
     "@types/jest": "^26.0.10",

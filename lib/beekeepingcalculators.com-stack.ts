@@ -22,7 +22,7 @@ export class BeekeepingcalculatorsComStack extends Stack {
     })
 
     new s3deploy.BucketDeployment(this, "DeployWebsite", {
-      sources: [ s3deploy.Source.asset("./website")],
+      sources: [ s3deploy.Source.asset("./website/build")],
       destinationBucket: websiteBucket,
       distribution, 
       distributionPaths: ["/*"],
