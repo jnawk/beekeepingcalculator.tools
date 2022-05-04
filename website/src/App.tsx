@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import convert, { Converter } from 'convert';
+import convert, { Converter, Volume } from 'convert';
 
 interface Volumes {
   litres?: string,
@@ -14,16 +14,14 @@ interface AppState {
   volume?: Volumes
 }
 
-type VolumeUnits = 'litres' | 'fl. oz.' | 'quarts'
-
-function convertToFixed(amount: Converter<number, VolumeUnits>, from: VolumeUnits, to: VolumeUnits): string {
+function convertToFixed(amount: Converter<number, Volume>, from: Volume, to: Volume): string {
   if (from === to) {
     return amount.to(to).toString();
   }
   return amount.to(to).toFixed(2);
 }
 
-function convertVolume(event: React.ChangeEvent<HTMLInputElement>, from: VolumeUnits): Volumes {
+function convertVolume(event: React.ChangeEvent<HTMLInputElement>, from: Volume): Volumes {
   let value = parseFloat(event.target.value);
   if (Number.isNaN(value)) {
     value = 0;
