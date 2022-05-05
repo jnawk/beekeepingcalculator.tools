@@ -29,19 +29,19 @@ const volumeLabels: Record<VolumeControlLabel, VolumeDetails> = {
   },
   imperialGallons: {
     controlLabel: 'Imperial Gallons',
-    convertTarget: 'imperial gallon',
+    convertTarget: 'imperial gallons',
   },
   litres: {
     controlLabel: 'Litres',
-    convertTarget: 'liter',
+    convertTarget: 'liters',
   },
   usGallons: {
     controlLabel: 'US Gallons',
-    convertTarget: 'US liquid gallon',
+    convertTarget: 'US liquid gallons',
   },
   usQuarts: {
     controlLabel: 'US Quarts',
-    convertTarget: 'US liquid quart',
+    convertTarget: 'US liquid quarts',
   },
 };
 
@@ -67,10 +67,10 @@ function convertVolume(
   const amount = convert(value, from);
   return {
     litres: convertToFixed(amount, from, 'litres'),
-    usQuarts: convertToFixed(amount, from, 'US liquid quart'),
-    usGallons: convertToFixed(amount, from, 'US liquid gallon'),
-    imperialGallons: convertToFixed(amount, from, 'imperial gallon'),
     fluidOunces: convertToFixed(amount, from, 'US fluid ounces'),
+    usQuarts: convertToFixed(amount, from, 'US liquid quarts'),
+    usGallons: convertToFixed(amount, from, 'US liquid gallons'),
+    imperialGallons: convertToFixed(amount, from, 'imperial gallons'),
   };
 }
 
