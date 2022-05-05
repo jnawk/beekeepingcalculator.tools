@@ -82,6 +82,12 @@ const weightLabels: Record<WeightControl, WeightDetails> = {
 interface AppState {
   volumes?: Volumes;
   weights?: Weights
+function nanIsZero(event: React.ChangeEvent<HTMLInputElement>): number {
+  const value = parseFloat(event.target.value);
+  if (Number.isNaN(value)) {
+    return 0;
+  }
+  return value;
 }
 
 function convertToFixed<T extends Volume | Mass>(
@@ -99,11 +105,7 @@ function convertVolume(
   event: React.ChangeEvent<HTMLInputElement>,
   from: Volume,
 ): Volumes {
-  let value = parseFloat(event.target.value);
-  if (Number.isNaN(value)) {
-    value = 0;
-  }
-  const amount = convert(value, from);
+  const amount = convert(nanIsZero(event), from);
   return {
     litres: convertToFixed(amount, from, 'litres'),
     fluidOunces: convertToFixed(amount, from, 'US fluid ounces'),
@@ -117,11 +119,7 @@ function convertWeight(
   event: React.ChangeEvent<HTMLInputElement>,
   from: Mass,
 ): Weights {
-  let value = parseFloat(event.target.value);
-  if (Number.isNaN(value)) {
-    value = 0;
-  }
-  const amount = convert(value, from);
+  const amount = convert(nanIsZero(event), from);
   return {
     kilograms: convertToFixed(amount, from, 'kilograms'),
     ounces: convertToFixed(amount, from, 'ounces'),
