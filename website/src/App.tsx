@@ -20,60 +20,61 @@ type WeightControl =
 
 type Volumes = Record<VolumeControl, string>;
 type Weights = Record<WeightControl, string>;
-
-interface VolumeDetails {
-  controlLabel: string;
-  convertTarget: Volume;
+interface Details {
+  label: string
 }
 
-interface WeightDetails {
-  controlLabel: string;
-  convertTarget: Mass
+interface VolumeDetails extends Details {
+  target: Volume;
+}
+
+interface WeightDetails extends Details {
+  target: Mass
 }
 
 const volumeLabels: Record<VolumeControl, VolumeDetails> = {
   fluidOunces: {
-    controlLabel: 'Fluid Ounces',
-    convertTarget: 'US fluid ounces',
+    label: 'Fluid Ounces',
+    target: 'US fluid ounces',
   },
   imperialGallons: {
-    controlLabel: 'Imperial Gallons',
-    convertTarget: 'imperial gallons',
+    label: 'Imperial Gallons',
+    target: 'imperial gallons',
   },
   litres: {
-    controlLabel: 'Litres',
-    convertTarget: 'liters',
+    label: 'Litres',
+    target: 'liters',
   },
   usGallons: {
-    controlLabel: 'US Gallons',
-    convertTarget: 'US liquid gallons',
+    label: 'US Gallons',
+    target: 'US liquid gallons',
   },
   usQuarts: {
-    controlLabel: 'US Quarts',
-    convertTarget: 'US liquid quarts',
+    label: 'US Quarts',
+    target: 'US liquid quarts',
   },
 };
 
 const weightLabels: Record<WeightControl, WeightDetails> = {
   kilograms: {
-    controlLabel: 'Kilograms',
-    convertTarget: 'kilograms',
+    label: 'Kilograms',
+    target: 'kilograms',
   },
   ounces: {
-    controlLabel: 'Ounces',
-    convertTarget: 'ounces',
+    label: 'Ounces',
+    target: 'ounces',
   },
   pounds: {
-    controlLabel: 'Pounds',
-    convertTarget: 'pounds',
+    label: 'Pounds',
+    target: 'pounds',
   },
   tonnes: {
-    controlLabel: 'Tonnes',
-    convertTarget: 'tonnes',
+    label: 'Tonnes',
+    target: 'tonnes',
   },
   tons: {
-    controlLabel: 'Tons',
-    convertTarget: 'US tons',
+    label: 'Tons',
+    target: 'US tons',
   },
 };
 interface AppState {
@@ -144,13 +145,13 @@ export default class App extends React.Component<
     return (
       <Col xs={1}>
         <label htmlFor={controlName}>
-          {weightLabels[controlName].controlLabel}
+          {weightLabels[controlName].label}
           <input
             type="number"
             name={controlName}
             value={weight}
             onChange={(event) => {
-              this.setState({ weights: convertWeight(event, weightLabels[controlName].convertTarget) });
+              this.setState({ weights: convertWeight(event, weightLabels[controlName].target) });
             }}
           />
         </label>
@@ -165,13 +166,13 @@ export default class App extends React.Component<
     return (
       <Col xs={1}>
         <label htmlFor={controlName}>
-          {volumeLabels[controlName].controlLabel}
+          {lengthLabels[controlName].label}
           <input
             type="number"
             name={controlName}
             value={volume}
             onChange={(event) => {
-              this.setState({ volumes: convertVolume(event, volumeLabels[controlName].convertTarget) });
+              this.setState({ lengths: convertLength(event, lengthLabels[controlName].target) });
             }}
           />
         </label>
