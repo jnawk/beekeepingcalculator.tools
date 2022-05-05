@@ -3,7 +3,9 @@ import './App.css';
 import convert, {
   Converter, Volume, Mass, Length,
 } from 'convert';
-import { Col, Container, Row } from 'reactstrap';
+import {
+  Col, Container, Row, Alert,
+} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 
 // all controls are plural
@@ -329,6 +331,11 @@ export default class App extends React.Component<
     return (
       <Container fluid>
         <Row>
+          <Col xs={6}>
+            <Alert color="info">Volume</Alert>
+          </Col>
+        </Row>
+        <Row className="unitRow">
           {this.volumeControl('litres')}
           {this.volumeControl('fluidOunces')}
           {this.volumeControl('usQuarts')}
@@ -337,6 +344,11 @@ export default class App extends React.Component<
         </Row>
 
         <Row>
+          <Col xs={6}>
+            <Alert color="info">Weight</Alert>
+          </Col>
+        </Row>
+        <Row className="unitRow">
           {this.weightControl('kilograms')}
           {this.weightControl('ounces')}
           {this.weightControl('pounds')}
@@ -345,6 +357,11 @@ export default class App extends React.Component<
         </Row>
 
         <Row>
+          <Col xs={6}>
+            <Alert color="info">Length</Alert>
+          </Col>
+        </Row>
+        <Row className="unitRow">
           {this.lengthControl('meters')}
           {this.lengthControl('centimeters')}
           {this.lengthControl('inches')}
@@ -353,6 +370,11 @@ export default class App extends React.Component<
         </Row>
 
         <Row>
+          <Col xs={6}>
+            <Alert color="info">Distance</Alert>
+          </Col>
+        </Row>
+        <Row className="unitRow">
           {this.distanceControl('meters')}
           {this.distanceControl('kilometers')}
           {this.distanceControl('feet')}
