@@ -4,6 +4,7 @@ import convert, { Converter, Volume, Mass } from 'convert';
 import { Col, Container, Row } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 
+// all controls are plural
 type VolumeControl =
   | 'litres'
   | 'fluidOunces'
@@ -32,6 +33,7 @@ interface WeightDetails extends Details {
   target: Mass
 }
 
+// remember, plural
 const volumeLabels: Record<VolumeControl, VolumeDetails> = {
   fluidOunces: {
     label: 'Fluid Ounces',
