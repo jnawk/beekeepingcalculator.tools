@@ -10,7 +10,9 @@
     "test": "jest",
     "cdk": "cdk",
     "lint:cdk": "eslint . --ext .ts",
-    "lint:website": "cd website; npm run lint"
+    "lint:website": "cd website; npm run lint",
+    "lint:cdk:fix": "eslint . --ext .ts --fix",
+    "lint:website:fix": "cd website; npm run lint:fix"
   },
   "devDependencies": {
     "@types/jest": "^26.0.10",
