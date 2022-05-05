@@ -4,7 +4,7 @@ import convert, {
   Converter, Volume, Mass, Length,
 } from 'convert';
 import {
-  Col, Container, Row, Alert,
+  Col, Container, Row, UncontrolledAccordion, AccordionHeader, AccordionItem, AccordionBody,
 } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -330,58 +330,68 @@ export default class App extends React.Component<
   render(): React.ReactElement {
     return (
       <Container fluid>
-        <Row>
-          <Col xs={6}>
-            <Alert color="info">Volume</Alert>
-          </Col>
-        </Row>
-        <Row className="unitRow">
-          {this.volumeControl('litres')}
-          {this.volumeControl('fluidOunces')}
-          {this.volumeControl('usQuarts')}
-          {this.volumeControl('usGallons')}
-          {this.volumeControl('imperialGallons')}
-        </Row>
+        <UncontrolledAccordion defaultOpen={['1', '2', '3', '4']} stayOpen open={['1', '2', '3', '4']}>
+          <AccordionItem>
+            <AccordionHeader targetId="1">
+              Volume
+            </AccordionHeader>
+            <AccordionBody accordionId="1">
+              <Row>
+                {this.volumeControl('litres')}
+                {this.volumeControl('fluidOunces')}
+                {this.volumeControl('usQuarts')}
+                {this.volumeControl('usGallons')}
+                {this.volumeControl('imperialGallons')}
+              </Row>
+            </AccordionBody>
+          </AccordionItem>
 
-        <Row>
-          <Col xs={6}>
-            <Alert color="info">Weight</Alert>
-          </Col>
-        </Row>
-        <Row className="unitRow">
-          {this.weightControl('kilograms')}
-          {this.weightControl('ounces')}
-          {this.weightControl('pounds')}
-          {this.weightControl('tons')}
-          {this.weightControl('tonnes')}
-        </Row>
+          <AccordionItem>
+            <AccordionHeader targetId="2">
+              Weight
+            </AccordionHeader>
+            <AccordionBody accordionId="2">
+              <Row>
+                {this.weightControl('kilograms')}
+                {this.weightControl('ounces')}
+                {this.weightControl('pounds')}
+                {this.weightControl('tons')}
+                {this.weightControl('tonnes')}
+              </Row>
+            </AccordionBody>
 
-        <Row>
-          <Col xs={6}>
-            <Alert color="info">Length</Alert>
-          </Col>
-        </Row>
-        <Row className="unitRow">
-          {this.lengthControl('meters')}
-          {this.lengthControl('centimeters')}
-          {this.lengthControl('inches')}
-          {this.lengthControl('feet')}
-          {this.lengthControl('yards')}
-        </Row>
+          </AccordionItem>
+          <AccordionItem>
+            <AccordionHeader targetId="3">
+              Length
+            </AccordionHeader>
+            <AccordionBody accordionId="3">
+              <Row>
+                {this.lengthControl('meters')}
+                {this.lengthControl('centimeters')}
+                {this.lengthControl('inches')}
+                {this.lengthControl('feet')}
+                {this.lengthControl('yards')}
+              </Row>
+            </AccordionBody>
 
-        <Row>
-          <Col xs={6}>
-            <Alert color="info">Distance</Alert>
-          </Col>
-        </Row>
-        <Row className="unitRow">
-          {this.distanceControl('meters')}
-          {this.distanceControl('kilometers')}
-          {this.distanceControl('feet')}
-          {this.distanceControl('yards')}
-          {this.distanceControl('miles')}
-        </Row>
+          </AccordionItem>
+          <AccordionItem>
+            <AccordionHeader targetId="4">
+              Distance
+            </AccordionHeader>
+            <AccordionBody accordionId="4">
+              <Row>
+                {this.distanceControl('meters')}
+                {this.distanceControl('kilometers')}
+                {this.distanceControl('feet')}
+                {this.distanceControl('yards')}
+                {this.distanceControl('miles')}
+              </Row>
+            </AccordionBody>
 
+          </AccordionItem>
+        </UncontrolledAccordion>
       </Container>
     );
   }
