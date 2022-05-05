@@ -25,7 +25,7 @@ interface VolumeDetails {
 const volumeLabels: Record<VolumeControlLabel, VolumeDetails> = {
   fluidOunces: {
     controlLabel: 'Fluid Ounces',
-    convertTarget: 'fl. oz.',
+    convertTarget: 'US fluid ounces',
   },
   imperialGallons: {
     controlLabel: 'Imperial Gallons',
@@ -67,10 +67,10 @@ function convertVolume(
   const amount = convert(value, from);
   return {
     litres: convertToFixed(amount, from, 'litres'),
-    fluidOunces: convertToFixed(amount, from, 'fl. oz.'),
     usQuarts: convertToFixed(amount, from, 'US liquid quart'),
     usGallons: convertToFixed(amount, from, 'US liquid gallon'),
     imperialGallons: convertToFixed(amount, from, 'imperial gallon'),
+    fluidOunces: convertToFixed(amount, from, 'US fluid ounces'),
   };
 }
 
