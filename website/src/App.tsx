@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import convert, { Converter, Volume } from 'convert';
+import convert, { Converter, Volume, Mass } from 'convert';
 import { Col, Container, Row } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -11,15 +11,24 @@ type VolumeControl =
   | 'usGallons'
   | 'imperialGallons';
 
+type WeightControl =
+  | 'kilograms'
+  | 'ounces'
+  | 'pounds'
+  | 'tons'
+  | 'tonnes'
 
-interface AppState {
-  volume?: Volumes;
-}
 type Volumes = Record<VolumeControl, string>;
+type Weights = Record<WeightControl, string>;
 
 interface VolumeDetails {
   controlLabel: string;
   convertTarget: Volume;
+}
+
+interface WeightDetails {
+  controlLabel: string;
+  convertTarget: Mass
 }
 
 const volumeLabels: Record<VolumeControl, VolumeDetails> = {
@@ -45,10 +54,37 @@ const volumeLabels: Record<VolumeControl, VolumeDetails> = {
   },
 };
 
-function convertToFixed(
-  amount: Converter<number, Volume>,
-  from: Volume,
-  to: Volume,
+const weightLabels: Record<WeightControl, WeightDetails> = {
+  kilograms: {
+    controlLabel: 'Kilograms',
+    convertTarget: 'kilograms',
+  },
+  ounces: {
+    controlLabel: 'Ounces',
+    convertTarget: 'ounces',
+  },
+  pounds: {
+    controlLabel: 'Pounds',
+    convertTarget: 'pounds',
+  },
+  tonnes: {
+    controlLabel: 'Tonnes',
+    convertTarget: 'tonnes',
+  },
+  tons: {
+    controlLabel: 'Tons',
+    convertTarget: 'US tons',
+  },
+};
+interface AppState {
+  volumes?: Volumes;
+  weights?: Weights
+}
+
+function convertToFixed<T extends Volume | Mass>(
+  amount: Converter<number, T>,
+  from: T,
+  to: T,
 ): string {
   if (from === to) {
     return amount.to(to).toString();
@@ -74,6 +110,24 @@ function convertVolume(
   };
 }
 
+function convertWeight(
+  event: React.ChangeEvent<HTMLInputElement>,
+  from: Mass,
+): Weights {
+  let value = parseFloat(event.target.value);
+  if (Number.isNaN(value)) {
+    value = 0;
+  }
+  const amount = convert(value, from);
+  return {
+    kilograms: convertToFixed(amount, from, 'kilograms'),
+    ounces: convertToFixed(amount, from, 'ounces'),
+    pounds: convertToFixed(amount, from, 'pounds'),
+    tonnes: convertToFixed(amount, from, 'tonnes'),
+    tons: convertToFixed(amount, from, 'US tons'),
+  };
+}
+
 export default class App extends React.Component<
   Record<string, never>,
   AppState
@@ -83,8 +137,29 @@ export default class App extends React.Component<
     this.state = {};
   }
 
-  volumeControl(controlName: VolumeControlLabel) {
-    const { volume: volumes } = this.state;
+  weightControl(controlName: WeightControl) {
+    const { weights } = this.state;
+    const weight = weights ? weights[controlName] : undefined;
+
+    return (
+      <Col xs={1}>
+        <label htmlFor={controlName}>
+          {weightLabels[controlName].controlLabel}
+          <input
+            type="number"
+            name={controlName}
+            value={weight}
+            onChange={(event) => {
+              this.setState({ weights: convertWeight(event, weightLabels[controlName].convertTarget) });
+            }}
+          />
+        </label>
+      </Col>
+    );
+  }
+
+  volumeControl(controlName: VolumeControl) {
+    const { volumes } = this.state;
     const volume = volumes ? volumes[controlName] : undefined;
 
     return (
@@ -96,7 +171,7 @@ export default class App extends React.Component<
             name={controlName}
             value={volume}
             onChange={(event) => {
-              this.setState({ volume: convertVolume(event, volumeLabels[controlName].convertTarget) });
+              this.setState({ volumes: convertVolume(event, volumeLabels[controlName].convertTarget) });
             }}
           />
         </label>
@@ -113,6 +188,14 @@ export default class App extends React.Component<
           {this.volumeControl('usQuarts')}
           {this.volumeControl('usGallons')}
           {this.volumeControl('imperialGallons')}
+        </Row>
+
+        <Row>
+          {this.weightControl('kilograms')}
+          {this.weightControl('ounces')}
+          {this.weightControl('pounds')}
+          {this.weightControl('tons')}
+          {this.weightControl('tonnes')}
         </Row>
       </Container>
     );
