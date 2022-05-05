@@ -4,25 +4,25 @@ import convert, { Converter, Volume } from 'convert';
 import { Col, Container, Row } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 
-type VolumeControlLabel =
+type VolumeControl =
   | 'litres'
   | 'fluidOunces'
   | 'usQuarts'
   | 'usGallons'
   | 'imperialGallons';
 
-type Volumes = Record<VolumeControlLabel, string>;
 
 interface AppState {
   volume?: Volumes;
 }
+type Volumes = Record<VolumeControl, string>;
 
 interface VolumeDetails {
   controlLabel: string;
   convertTarget: Volume;
 }
 
-const volumeLabels: Record<VolumeControlLabel, VolumeDetails> = {
+const volumeLabels: Record<VolumeControl, VolumeDetails> = {
   fluidOunces: {
     controlLabel: 'Fluid Ounces',
     convertTarget: 'US fluid ounces',
