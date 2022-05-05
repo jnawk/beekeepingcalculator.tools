@@ -53,7 +53,7 @@ function convertToFixed(
   if (from === to) {
     return amount.to(to).toString();
   }
-  return amount.to(to).toFixed(2);
+  return amount.to(to).toFixed(4);
 }
 
 function convertVolume(
