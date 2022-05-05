@@ -17,6 +17,34 @@ interface AppState {
   volume?: Volumes;
 }
 
+interface VolumeDetails {
+  controlLabel: string;
+  convertTarget: Volume;
+}
+
+const volumeLabels: Record<VolumeControlLabel, VolumeDetails> = {
+  fluidOunces: {
+    controlLabel: 'Fluid Ounces',
+    convertTarget: 'fl. oz.',
+  },
+  imperialGallons: {
+    controlLabel: 'Imperial Gallons',
+    convertTarget: 'imperial gallon',
+  },
+  litres: {
+    controlLabel: 'Litres',
+    convertTarget: 'liter',
+  },
+  usGallons: {
+    controlLabel: 'US Gallons',
+    convertTarget: 'US liquid gallon',
+  },
+  usQuarts: {
+    controlLabel: 'US Quarts',
+    convertTarget: 'US liquid quart',
+  },
+};
+
 function convertToFixed(
   amount: Converter<number, Volume>,
   from: Volume,
@@ -55,78 +83,36 @@ export default class App extends React.Component<
     this.state = {};
   }
 
-  render(): React.ReactElement {
-    const { volume } = this.state;
+  volumeControl(controlName: VolumeControlLabel) {
+    const { volume: volumes } = this.state;
+    const volume = volumes ? volumes[controlName] : undefined;
 
+    return (
+      <Col xs={1}>
+        <label htmlFor={controlName}>
+          {volumeLabels[controlName].controlLabel}
+          <input
+            type="number"
+            name={controlName}
+            value={volume}
+            onChange={(event) => {
+              this.setState({ volume: convertVolume(event, volumeLabels[controlName].convertTarget) });
+            }}
+          />
+        </label>
+      </Col>
+    );
+  }
+
+  render(): React.ReactElement {
     return (
       <Container fluid>
         <Row>
-          <Col xs={1}>
-            <label htmlFor="litres">
-              Litres
-              {' '}
-              <input
-                type="number"
-                name="litres"
-                value={volume?.litres}
-                onChange={(event) => {
-                  this.setState({ volume: convertVolume(event, 'litres') });
-                }}
-              />
-            </label>
-          </Col>
-          <Col xs={1}>
-            <label htmlFor="fluidOunces">
-              Fluid Ounces
-              {' '}
-              <input
-                name="fluidOunces"
-                value={volume?.fluidOunces}
-                onChange={(event) => {
-                  this.setState({ volume: convertVolume(event, 'fl. oz.') });
-                }}
-              />
-            </label>
-          </Col>
-          <Col xs={1}>
-            <label htmlFor="usQuarts">
-              US Quarts
-              {' '}
-              <input
-                name="usQuarts"
-                value={volume?.usQuarts}
-                onChange={(event) => {
-                  this.setState({ volume: convertVolume(event, 'US liquid quart') });
-                }}
-              />
-            </label>
-          </Col>
-          <Col xs={1}>
-            <label htmlFor="usGallons">
-              US Gallons
-              {' '}
-              <input
-                name="usGallons"
-                value={volume?.usGallons}
-                onChange={(event) => {
-                  this.setState({ volume: convertVolume(event, 'US liquid gallon') });
-                }}
-              />
-            </label>
-          </Col>
-          <Col xs={1}>
-            <label htmlFor="imperialGallons">
-              Imperial Gallons
-              {' '}
-              <input
-                name="imperialGallons"
-                value={volume?.imperialGallons}
-                onChange={(event) => {
-                  this.setState({ volume: convertVolume(event, 'imperial gallon') });
-                }}
-              />
-            </label>
-          </Col>
+          {this.volumeControl('litres')}
+          {this.volumeControl('fluidOunces')}
+          {this.volumeControl('usQuarts')}
+          {this.volumeControl('usGallons')}
+          {this.volumeControl('imperialGallons')}
         </Row>
       </Container>
     );
