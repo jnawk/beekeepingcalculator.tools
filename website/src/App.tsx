@@ -55,7 +55,7 @@ interface WeightDetails extends Details {
 }
 
 // will serve distances too
-interface LengthDetails extends Details{
+interface LengthDetails extends Details {
   target: Length
 }
 
@@ -372,8 +372,8 @@ export default class App extends React.Component<
                 {this.weightControl('tonnes')}
               </Row>
             </AccordionBody>
-
           </AccordionItem>
+
           <AccordionItem>
             <AccordionHeader targetId="3">
               Length
@@ -387,8 +387,8 @@ export default class App extends React.Component<
                 {this.lengthControl('yards')}
               </Row>
             </AccordionBody>
-
           </AccordionItem>
+
           <AccordionItem>
             <AccordionHeader targetId="4">
               Distance
