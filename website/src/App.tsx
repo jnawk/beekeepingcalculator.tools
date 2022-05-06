@@ -13,6 +13,7 @@ import {
   distanceControl, Distances, lengthControl, Lengths,
 } from './length';
 import areaControl, { Areas } from './area';
+import frameWireControl, { FrameWires } from './frameWire';
 
 export interface Details {
   label: string
@@ -24,6 +25,7 @@ export interface AppState {
   lengths?: Lengths;
   distances?: Distances;
   areas?: Areas;
+  frameWires?: FrameWires;
 }
 
 export function nanIsZero(event: React.ChangeEvent<HTMLInputElement>): number {
@@ -75,7 +77,11 @@ export default class App extends React.Component<
     const rest: [AppState, {(newState: AppState): void}] = [this.state, (x: AppState) => this.setState(x)];
     return (
       <Container fluid>
-        <UncontrolledAccordion defaultOpen={['1', '2', '3', '4', '5']} stayOpen open={['1', '2', '3', '4', '5']}>
+        <UncontrolledAccordion
+          defaultOpen={['1', '2', '3', '4', '5', '6']}
+          open={['1', '2', '3', '4', '5', '6']}
+          stayOpen
+        >
           <AccordionItem>
             <AccordionHeader targetId="1">
               Volume
@@ -147,6 +153,20 @@ export default class App extends React.Component<
                 {areaControl('squareYards', ...rest)}
                 {areaControl('hectares', ...rest)}
                 {areaControl('acres', ...rest)}
+              </Row>
+            </AccordionBody>
+          </AccordionItem>
+
+          <AccordionItem>
+            <AccordionHeader targetId="6">
+              Frame Wires
+            </AccordionHeader>
+            <AccordionBody accordionId="6">
+              <Row>
+                {frameWireControl('kilogramsOfWire', ...rest)}
+                {frameWireControl('poundsOfWire', ...rest)}
+                {frameWireControl('frames3Wire', ...rest)}
+                {frameWireControl('frames4Wire', ...rest)}
               </Row>
             </AccordionBody>
           </AccordionItem>
