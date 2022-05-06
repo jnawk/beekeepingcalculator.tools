@@ -234,6 +234,23 @@ function convertDistance(
   };
 }
 
+function controlAndLabel(controlName: string, label: string, inputElement: JSX.Element) {
+  return (
+    <Col xs={12} md={1}>
+      <Row>
+        <label htmlFor={controlName}>
+          <Col xs={12}>
+            {label}
+          </Col>
+          <Col xs={12}>
+            {inputElement}
+          </Col>
+        </label>
+      </Row>
+    </Col>
+  );
+}
+
 export default class App extends React.Component<
   Record<string, never>,
   AppState
@@ -247,20 +264,17 @@ export default class App extends React.Component<
     const { volumes } = this.state;
     const volume = volumes ? volumes[controlName] : undefined;
 
-    return (
-      <Col xs={1}>
-        <label htmlFor={controlName}>
-          {volumeLabels[controlName].label}
-          <input
-            type="number"
-            name={controlName}
-            value={volume}
-            onChange={(event) => {
-              this.setState({ volumes: convertVolume(event, volumeLabels[controlName].target) });
-            }}
-          />
-        </label>
-      </Col>
+    return controlAndLabel(
+      controlName,
+      volumeLabels[controlName].label,
+      <input
+        type="number"
+        name={controlName}
+        value={volume}
+        onChange={(event) => {
+          this.setState({ volumes: convertVolume(event, volumeLabels[controlName].target) });
+        }}
+      />,
     );
   }
 
@@ -268,20 +282,17 @@ export default class App extends React.Component<
     const { weights } = this.state;
     const weight = weights ? weights[controlName] : undefined;
 
-    return (
-      <Col xs={1}>
-        <label htmlFor={controlName}>
-          {weightLabels[controlName].label}
-          <input
-            type="number"
-            name={controlName}
-            value={weight}
-            onChange={(event) => {
-              this.setState({ weights: convertWeight(event, weightLabels[controlName].target) });
-            }}
-          />
-        </label>
-      </Col>
+    return controlAndLabel(
+      controlName,
+      weightLabels[controlName].label,
+      <input
+        type="number"
+        name={controlName}
+        value={weight}
+        onChange={(event) => {
+          this.setState({ weights: convertWeight(event, weightLabels[controlName].target) });
+        }}
+      />,
     );
   }
 
@@ -289,20 +300,17 @@ export default class App extends React.Component<
     const { lengths } = this.state;
     const length = lengths ? lengths[controlName] : undefined;
 
-    return (
-      <Col xs={1}>
-        <label htmlFor={controlName}>
-          {lengthLabels[controlName].label}
-          <input
-            type="number"
-            name={controlName}
-            value={length}
-            onChange={(event) => {
-              this.setState({ lengths: convertLength(event, lengthLabels[controlName].target) });
-            }}
-          />
-        </label>
-      </Col>
+    return controlAndLabel(
+      controlName,
+      lengthLabels[controlName].label,
+      <input
+        type="number"
+        name={controlName}
+        value={length}
+        onChange={(event) => {
+          this.setState({ lengths: convertLength(event, lengthLabels[controlName].target) });
+        }}
+      />,
     );
   }
 
@@ -310,20 +318,17 @@ export default class App extends React.Component<
     const { distances } = this.state;
     const distance = distances ? distances[controlName] : undefined;
 
-    return (
-      <Col xs={1}>
-        <label htmlFor={controlName}>
-          {distanceLabels[controlName].label}
-          <input
-            type="number"
-            name={controlName}
-            value={distance}
-            onChange={(event) => {
-              this.setState({ distances: convertDistance(event, distanceLabels[controlName].target) });
-            }}
-          />
-        </label>
-      </Col>
+    return controlAndLabel(
+      controlName,
+      distanceLabels[controlName].label,
+      <input
+        type="number"
+        name={controlName}
+        value={distance}
+        onChange={(event) => {
+          this.setState({ distances: convertDistance(event, distanceLabels[controlName].target) });
+        }}
+      />,
     );
   }
 
