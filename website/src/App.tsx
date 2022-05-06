@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import convert, {
-  Converter, Volume, Mass, Length,
+  Converter, Volume, Mass, Length, Area,
 } from 'convert';
 import {
   Col, Container, Row, UncontrolledAccordion, AccordionHeader, AccordionItem, AccordionBody,
@@ -37,10 +37,18 @@ type DistanceControl =
   | 'yards'
   | 'miles'
 
+type AreaControl =
+  | 'squareMeters'
+  | 'squareFeet'
+  | 'squareYards'
+  | 'hectares'
+  | 'acres'
+
 type Volumes = Record<VolumeControl, string>;
 type Weights = Record<WeightControl, string>;
 type Lengths = Record<LengthControl, string>
 type Distances = Record<DistanceControl, string>
+type Areas = Record<AreaControl, string>;
 
 interface Details {
   label: string
@@ -59,11 +67,16 @@ interface LengthDetails extends Details {
   target: Length
 }
 
+interface AreaDetails extends Details {
+  target: Area
+}
+
 interface AppState {
   volumes?: Volumes;
   weights?: Weights;
   lengths?: Lengths;
   distances?: Distances;
+  areas?: Areas;
 }
 
 // remember, plural
@@ -159,6 +172,29 @@ const distanceLabels: Record<DistanceControl, LengthDetails> = {
   },
 };
 
+const areaLabels: Record<AreaControl, AreaDetails> = {
+  acres: {
+    label: 'Acres',
+    target: 'acres',
+  },
+  hectares: {
+    label: 'Hectares',
+    target: 'hectares',
+  },
+  squareFeet: {
+    label: 'Square Feet',
+    target: 'square feet',
+  },
+  squareMeters: {
+    label: 'Square Meters',
+    target: 'square meters',
+  },
+  squareYards: {
+    label: 'Square Yards',
+    target: 'square yards',
+  },
+};
+
 function nanIsZero(event: React.ChangeEvent<HTMLInputElement>): number {
   const value = parseFloat(event.target.value);
   if (Number.isNaN(value)) {
@@ -167,7 +203,7 @@ function nanIsZero(event: React.ChangeEvent<HTMLInputElement>): number {
   return value;
 }
 
-function convertToFixed<T extends Volume | Mass | Length>(
+function convertToFixed<T extends Volume | Mass | Length | Area>(
   amount: Converter<number, T>,
   from: T,
   to: T,
@@ -231,6 +267,20 @@ function convertDistance(
     meters: convertToFixed(amount, from, 'meters'),
     miles: convertToFixed(amount, from, 'miles'),
     yards: convertToFixed(amount, from, 'yards'),
+  };
+}
+
+function convertArea(
+  event: React.ChangeEvent<HTMLInputElement>,
+  from: Area,
+): Areas {
+  const amount = convert(nanIsZero(event), from);
+  return {
+    acres: convertToFixed(amount, from, 'acres'),
+    hectares: convertToFixed(amount, from, 'hectares'),
+    squareFeet: convertToFixed(amount, from, 'square feet'),
+    squareMeters: convertToFixed(amount, from, 'square meters'),
+    squareYards: convertToFixed(amount, from, 'square yards'),
   };
 }
 
@@ -340,10 +390,30 @@ export default class App extends React.Component<
     );
   }
 
+  areaControl(controlName: AreaControl) {
+    const { areas } = this.state;
+    const area = areas ? areas[controlName] : '';
+
+    return controlAndLabel(
+      controlName,
+      areaLabels[controlName].label,
+      <input
+        type="number"
+        name={controlName}
+        value={area}
+        onChange={(event) => {
+          const newAreas = convertArea(event, areaLabels[controlName].target);
+          newAreas[controlName] = event.target.value;
+          this.setState({ areas: newAreas });
+        }}
+      />,
+    );
+  }
+
   render(): React.ReactElement {
     return (
       <Container fluid>
-        <UncontrolledAccordion defaultOpen={['1', '2', '3', '4']} stayOpen open={['1', '2', '3', '4']}>
+        <UncontrolledAccordion defaultOpen={['1', '2', '3', '4', '5']} stayOpen open={['1', '2', '3', '4', '5']}>
           <AccordionItem>
             <AccordionHeader targetId="1">
               Volume
@@ -402,8 +472,23 @@ export default class App extends React.Component<
                 {this.distanceControl('miles')}
               </Row>
             </AccordionBody>
-
           </AccordionItem>
+
+          <AccordionItem>
+            <AccordionHeader targetId="5">
+              Area
+            </AccordionHeader>
+            <AccordionBody accordionId="5">
+              <Row>
+                {this.areaControl('squareMeters')}
+                {this.areaControl('squareFeet')}
+                {this.areaControl('squareYards')}
+                {this.areaControl('hectares')}
+                {this.areaControl('acres')}
+              </Row>
+            </AccordionBody>
+          </AccordionItem>
+
         </UncontrolledAccordion>
       </Container>
     );
