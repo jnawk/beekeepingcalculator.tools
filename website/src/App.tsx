@@ -272,7 +272,9 @@ export default class App extends React.Component<
         name={controlName}
         value={volume}
         onChange={(event) => {
-          this.setState({ volumes: convertVolume(event, volumeLabels[controlName].target) });
+          const newVolumes = convertVolume(event, volumeLabels[controlName].target);
+          newVolumes[controlName] = event.target.value;
+          this.setState({ volumes: newVolumes });
         }}
       />,
     );
@@ -290,7 +292,9 @@ export default class App extends React.Component<
         name={controlName}
         value={weight}
         onChange={(event) => {
-          this.setState({ weights: convertWeight(event, weightLabels[controlName].target) });
+          const newWeights = convertWeight(event, weightLabels[controlName].target);
+          newWeights[controlName] = event.target.value;
+          this.setState({ weights: newWeights });
         }}
       />,
     );
@@ -308,7 +312,9 @@ export default class App extends React.Component<
         name={controlName}
         value={length}
         onChange={(event) => {
-          this.setState({ lengths: convertLength(event, lengthLabels[controlName].target) });
+          const newLengths = convertLength(event, lengthLabels[controlName].target);
+          newLengths[controlName] = event.target.value;
+          this.setState({ lengths: newLengths });
         }}
       />,
     );
@@ -326,7 +332,9 @@ export default class App extends React.Component<
         name={controlName}
         value={distance}
         onChange={(event) => {
-          this.setState({ distances: convertDistance(event, distanceLabels[controlName].target) });
+          const newDistances = convertDistance(event, distanceLabels[controlName].target);
+          newDistances[controlName] = event.target.value;
+          this.setState({ distances: newDistances });
         }}
       />,
     );
