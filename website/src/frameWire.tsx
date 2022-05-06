@@ -25,7 +25,7 @@ const frameWireLabels: Record<FrameWireControl, FrameWireDetails> = {
   frames3Wire: {
     label: 'Frames (3 wire)',
     target: 'frames3Wire',
-    ratio: 550,
+    ratio: 500,
   },
   frames4Wire: {
     label: 'Frames (4 wire)',
