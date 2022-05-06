@@ -78,7 +78,7 @@ const volumeLabels: Record<VolumeControl, VolumeDetails> = {
   },
   litres: {
     label: 'Litres',
-    target: 'liters',
+    target: 'litres',
   },
   usGallons: {
     label: 'US Gallons',
