@@ -262,7 +262,7 @@ export default class App extends React.Component<
 
   volumeControl(controlName: VolumeControl) {
     const { volumes } = this.state;
-    const volume = volumes ? volumes[controlName] : undefined;
+    const volume = volumes ? volumes[controlName] : '';
 
     return controlAndLabel(
       controlName,
@@ -280,7 +280,7 @@ export default class App extends React.Component<
 
   weightControl(controlName: WeightControl) {
     const { weights } = this.state;
-    const weight = weights ? weights[controlName] : undefined;
+    const weight = weights ? weights[controlName] : '';
 
     return controlAndLabel(
       controlName,
@@ -298,7 +298,7 @@ export default class App extends React.Component<
 
   lengthControl(controlName: LengthControl) {
     const { lengths } = this.state;
-    const length = lengths ? lengths[controlName] : undefined;
+    const length = lengths ? lengths[controlName] : '';
 
     return controlAndLabel(
       controlName,
@@ -316,7 +316,7 @@ export default class App extends React.Component<
 
   distanceControl(controlName: DistanceControl) {
     const { distances } = this.state;
-    const distance = distances ? distances[controlName] : undefined;
+    const distance = distances ? distances[controlName] : '';
 
     return controlAndLabel(
       controlName,
