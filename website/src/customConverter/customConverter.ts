@@ -29,6 +29,17 @@ export class CustomConverter<T extends CustomUnit> {
   }
 }
 
+export function customConvertToFixed<T extends CustomUnit>(
+  amount: CustomConverter<CustomUnit>,
+  from: T,
+  to: T,
+): string {
+  if (from === to) {
+    return amount.to(to).toString();
+  }
+  return amount.to(to).toFixed(4);
+}
+
 export default function customConvert<T extends CustomUnit>(
   amount: number,
   from: T,

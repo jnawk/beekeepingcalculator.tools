@@ -1,20 +1,9 @@
 import React from 'react';
 import { nanIsZero, AppState, controlAndLabel } from './App';
-import customConvert, { CustomConverter, CustomUnit } from './customConverter/customConverter';
+import customConvert, { customConvertToFixed, CustomUnit } from './customConverter/customConverter';
 import { FrameWireUnitName, frameWireUnits } from './customConverter/frameWire';
 
 export type FrameWires = Record<FrameWireUnitName, string>;
-
-export function convertToFixed<T extends CustomUnit>(
-  amount: CustomConverter<CustomUnit>,
-  from: T,
-  to: T,
-): string {
-  if (from === to) {
-    return amount.to(to).toString();
-  }
-  return amount.to(to).toFixed(4);
-}
 
 function convertFrameWire(
   event: React.ChangeEvent<HTMLInputElement>,
@@ -22,10 +11,10 @@ function convertFrameWire(
 ): FrameWires {
   const amount = customConvert(nanIsZero(event), from);
   return {
-    frames3Wire: convertToFixed(amount, from, frameWireUnits.frames3Wire),
-    frames4Wire: convertToFixed(amount, from, frameWireUnits.frames4Wire),
-    kilogramsOfWire: convertToFixed(amount, from, frameWireUnits.kilogramsOfWire),
-    poundsOfWire: convertToFixed(amount, from, frameWireUnits.poundsOfWire),
+    frames3Wire: customConvertToFixed(amount, from, frameWireUnits.frames3Wire),
+    frames4Wire: customConvertToFixed(amount, from, frameWireUnits.frames4Wire),
+    kilogramsOfWire: customConvertToFixed(amount, from, frameWireUnits.kilogramsOfWire),
+    poundsOfWire: customConvertToFixed(amount, from, frameWireUnits.poundsOfWire),
   };
 }
 
