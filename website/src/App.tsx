@@ -14,6 +14,7 @@ import {
 } from './length';
 import areaControl, { Areas } from './area';
 import frameWireControl, { FrameWires } from './frameWire';
+import frameNailControl, { FrameNails } from './frameNail';
 
 export interface Details {
   label: string
@@ -26,6 +27,7 @@ export interface AppState {
   distances?: Distances;
   areas?: Areas;
   frameWires?: FrameWires;
+  frameNails?: FrameNails;
 }
 
 export function nanIsZero(event: React.ChangeEvent<HTMLInputElement>): number {
@@ -168,6 +170,22 @@ export default class App extends React.Component<
                 {frameWireControl('poundsOfWire', ...rest)}
                 {frameWireControl('frames3Wire', ...rest)}
                 {frameWireControl('frames4Wire', ...rest)}
+              </Row>
+            </AccordionBody>
+          </AccordionItem>
+
+          <AccordionItem>
+            <AccordionHeader targetId="7">
+              Frame Nails
+            </AccordionHeader>
+            <AccordionBody accordionId="7">
+              <Row>
+                {frameNailControl('kilogramsOfNails', ...rest)}
+                {frameNailControl('poundsOfNails', ...rest)}
+                {frameNailControl('nails30x1p4', ...rest)}
+                {frameNailControl('nails40x1p6', ...rest)}
+                {frameNailControl('frames30x1p4', ...rest)}
+                {frameNailControl('frames40x1p6', ...rest)}
               </Row>
             </AccordionBody>
           </AccordionItem>
