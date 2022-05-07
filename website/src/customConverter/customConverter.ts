@@ -1,31 +1,11 @@
-import React from 'react';
-import {
-  AccordionItem, AccordionHeader, AccordionBody, Row,
-} from 'reactstrap';
-import { controlAndLabel, nanIsZero } from '../App';
-import { FrameNailUnitName } from './frameNails';
-import { FrameWireUnitName } from './frameWire';
-
-export type UnitFamily =
-  | 'frameWire'
-  | 'frameNail'
-
-export type UnitName =
-  | FrameWireUnitName
-  | FrameNailUnitName
-
-export type CustomUnit = {
-  ratio: number;
-  label: string;
-}
-
 export interface UnitState {
   value: string,
-  unit: CustomUnit2
+  unit: CustomUnit
 }
 
-export interface CustomUnit2 extends CustomUnit {
-  family: string,
+export interface CustomUnit {
+  ratio: number;
+  label: string;
   name: string,
 }
 

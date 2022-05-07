@@ -3,17 +3,17 @@ import {
   AccordionItem, AccordionHeader, AccordionBody, Row,
 } from 'reactstrap';
 import { controlAndLabel, nanIsZero } from '../App';
-import customConvert, { CustomUnit2, customConvertToFixed } from './customConverter';
+import customConvert, { CustomUnit, customConvertToFixed } from './customConverter';
 
 export interface UnitState {
   value: string,
-  unit: CustomUnit2
+  unit: CustomUnit
 }
 
 function genericConvert(
   event: React.ChangeEvent<HTMLInputElement>,
-  units: Array<CustomUnit2>,
-  from: CustomUnit2,
+  units: Array<CustomUnit>,
+  from: CustomUnit,
 ): Array<UnitState> {
   const amount = customConvert(nanIsZero(event), from);
   return units.map((unit) => ({
@@ -27,7 +27,7 @@ interface ControlState {
 }
 
 interface ControlProps {
-  units: Array<CustomUnit2>,
+  units: Array<CustomUnit>,
   heading: string
 }
 
@@ -47,7 +47,7 @@ export default class GenericControl extends React.Component<
 
   genericControl(
     controlName: string,
-    units: Array<CustomUnit2>,
+    units: Array<CustomUnit>,
   ) {
     const { state } = this.state;
     const item = state.find((value) => value.unit.name === controlName);

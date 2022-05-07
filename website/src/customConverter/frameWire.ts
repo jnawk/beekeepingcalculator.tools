@@ -1,29 +1,36 @@
 import convert from 'convert';
 import { CustomUnit } from './customConverter';
 
-export type FrameWireUnitName =
+type FrameWireUnitName =
   | 'frames3Wire'
   | 'frames4Wire'
   | 'kilogramsOfWire'
   | 'poundsOfWire'
 
-export type FrameWireUnits = Record<FrameWireUnitName, CustomUnit>
+interface FrameWireUnits extends CustomUnit {
+  name: FrameWireUnitName
+}
 
-export const frameWireUnits: FrameWireUnits = {
-  frames3Wire: {
-    label: 'Frames (3 wire)',
-    ratio: 500,
-  },
-  frames4Wire: {
-    label: 'Frames (4 wire)',
-    ratio: 375,
-  },
-  kilogramsOfWire: {
+const frameWireUnits: Array<FrameWireUnits> = [
+  {
+    name: 'kilogramsOfWire',
     label: 'Kilograms of wire',
     ratio: 1,
   },
-  poundsOfWire: {
+  {
+    name: 'poundsOfWire',
     label: 'Pounds of wire',
     ratio: convert(1, 'kilograms').to('pounds'),
   },
-};
+  {
+    name: 'frames3Wire',
+    label: 'Frames (3 wire)',
+    ratio: 500,
+  },
+  {
+    name: 'frames4Wire',
+    label: 'Frames (4 wire)',
+    ratio: 375,
+  },
+];
+export default frameWireUnits;

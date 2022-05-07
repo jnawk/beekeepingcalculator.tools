@@ -13,8 +13,8 @@ import {
   distanceControl, Distances, lengthControl, Lengths,
 } from './length';
 import areaControl, { Areas } from './area';
-import frameWireControl, { FrameWires } from './frameWire';
-import { frameNailUnits2 } from './customConverter/frameNails';
+import frameNailUnits from './customConverter/frameNails';
+import frameWireUnits from './customConverter/frameWire';
 import GenericControl from './customConverter/genericComponent';
 
 export interface Details {
@@ -27,7 +27,6 @@ export interface AppState {
   lengths?: Lengths;
   distances?: Distances;
   areas?: Areas;
-  frameWires?: FrameWires;
 }
 
 export function nanIsZero(event: React.ChangeEvent<HTMLInputElement>): number {
@@ -160,21 +159,8 @@ export default class App extends React.Component<
             </AccordionBody>
           </AccordionItem>
 
-          <AccordionItem>
-            <AccordionHeader targetId="6">
-              Frame Wires
-            </AccordionHeader>
-            <AccordionBody accordionId="6">
-              <Row>
-                {frameWireControl('kilogramsOfWire', ...rest)}
-                {frameWireControl('poundsOfWire', ...rest)}
-                {frameWireControl('frames3Wire', ...rest)}
-                {frameWireControl('frames4Wire', ...rest)}
-              </Row>
-            </AccordionBody>
-          </AccordionItem>
-
-          <GenericControl units={frameNailUnits2} heading="Frame Nails" />
+          <GenericControl units={frameWireUnits} heading="Frame Wires" />
+          <GenericControl units={frameNailUnits} heading="Frame Nails" />
 
         </UncontrolledAccordion>
       </Container>
