@@ -75,11 +75,12 @@ export default class App extends React.Component<
 
   render(): React.ReactElement {
     const rest: [AppState, {(newState: AppState): void}] = [this.state, (x: AppState) => this.setState(x)];
+    const items = [1, 2, 3, 4, 5, 6, 7].map((x) => x.toString());
     return (
       <Container fluid>
         <UncontrolledAccordion
-          defaultOpen={['1', '2', '3', '4', '5', '6']}
-          open={['1', '2', '3', '4', '5', '6']}
+          defaultOpen={items}
+          open={items}
           stayOpen
         >
           <AccordionItem>
