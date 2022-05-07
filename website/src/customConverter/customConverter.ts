@@ -1,15 +1,10 @@
-export interface UnitState {
-  value: string,
-  unit: CustomUnit
-}
-
 export interface CustomUnit {
   ratio: number;
   label: string;
   name: string,
 }
 
-export class CustomConverter<T extends CustomUnit> {
+class CustomConverter<T extends CustomUnit> {
   amount: number;
 
   from: T;
@@ -24,7 +19,7 @@ export class CustomConverter<T extends CustomUnit> {
   }
 }
 
-export function customConvertToFixed<T extends CustomUnit>(
+export function convertToFixed<T extends CustomUnit>(
   amount: CustomConverter<CustomUnit>,
   from: T,
   to: T,

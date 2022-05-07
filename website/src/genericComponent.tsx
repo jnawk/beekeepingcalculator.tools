@@ -1,13 +1,15 @@
 import React from 'react';
 import {
-  AccordionItem, AccordionHeader, AccordionBody, Row,
+  AccordionItem, AccordionHeader, AccordionBody, Row, Col,
 } from 'reactstrap';
-import { controlAndLabel, nanIsZero } from '../App';
-import customConvert, { CustomUnit, customConvertToFixed } from './customConverter';
+import customConvert, { CustomUnit, convertToFixed } from './customConverter/customConverter';
 
-export interface UnitState {
-  value: string,
-  unit: CustomUnit
+function nanIsZero(event: React.ChangeEvent<HTMLInputElement>): number {
+  const value = parseFloat(event.target.value);
+  if (Number.isNaN(value)) {
+    return 0;
+  }
+  return value;
 }
 
 function genericConvert(
@@ -18,18 +20,23 @@ function genericConvert(
   const amount = customConvert(nanIsZero(event), from);
   return units.map((unit) => ({
     unit,
-    value: customConvertToFixed(amount, from, unit),
+    value: convertToFixed(amount, from, unit),
   }));
 }
 
-interface ControlState {
-  state: Array<UnitState>
+interface UnitState {
+  value: string,
+  unit: CustomUnit
 }
 
 interface ControlProps {
   units: Array<CustomUnit>,
   heading: string,
   id: string,
+}
+
+interface ControlState {
+  state: Array<UnitState>
 }
 
 export default class GenericControl extends React.Component<
@@ -59,9 +66,7 @@ export default class GenericControl extends React.Component<
     const value = item?.value;
     const unit = item?.unit;
 
-    return controlAndLabel(
-      controlName,
-      label,
+    const inputElement = (
       <input
         type="number"
         name={controlName}
@@ -69,7 +74,22 @@ export default class GenericControl extends React.Component<
         onChange={(event) => {
           this.setState({ state: genericConvert(event, units, unit) });
         }}
-      />,
+      />
+    );
+
+    return (
+      <Col xs={12} lg={3} xxl={2}>
+        <Row>
+          <label htmlFor={controlName}>
+            <Col xs={12}>
+              {label}
+            </Col>
+            <Col xs={12}>
+              {inputElement}
+            </Col>
+          </label>
+        </Row>
+      </Col>
     );
   }
 
