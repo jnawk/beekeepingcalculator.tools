@@ -28,7 +28,8 @@ interface ControlState {
 
 interface ControlProps {
   units: Array<CustomUnit>,
-  heading: string
+  heading: string,
+  id: string,
 }
 
 export default class GenericControl extends React.Component<
@@ -73,14 +74,14 @@ export default class GenericControl extends React.Component<
   }
 
   render(): React.ReactElement {
-    const { units, heading } = this.props;
+    const { units, heading, id } = this.props;
 
     return (
       <AccordionItem>
-        <AccordionHeader targetId="7">
+        <AccordionHeader targetId={id}>
           {heading}
         </AccordionHeader>
-        <AccordionBody accordionId="7">
+        <AccordionBody accordionId={id}>
           <Row>
             {units.map((unit) => this.genericControl(
               unit.name,

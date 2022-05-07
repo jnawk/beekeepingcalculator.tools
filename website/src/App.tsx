@@ -1,33 +1,16 @@
 import React from 'react';
 import './App.css';
 import {
-  Converter, Volume, Mass, Length, Area,
-} from 'convert';
-import {
-  Col, Container, Row, UncontrolledAccordion, AccordionHeader, AccordionItem, AccordionBody,
+  Col, Container, Row, UncontrolledAccordion,
 } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.css';
-import volumeControl, { Volumes } from './volume';
-import weightControl, { Weights } from './weight';
-import {
-  distanceControl, Distances, lengthControl, Lengths,
-} from './length';
-import areaControl, { Areas } from './area';
+import { distanceUnits, lengthUnits } from './lengthUnits';
 import frameNailUnits from './customConverter/frameNails';
 import frameWireUnits from './customConverter/frameWire';
 import GenericControl from './customConverter/genericComponent';
-
-export interface Details {
-  label: string
-}
-
-export interface AppState {
-  volumes?: Volumes;
-  weights?: Weights;
-  lengths?: Lengths;
-  distances?: Distances;
-  areas?: Areas;
-}
+import volumeUnits from './volumeUnits';
+import weightUnits from './weightUnits';
+import areaUnits from './areaUnits';
 
 export function nanIsZero(event: React.ChangeEvent<HTMLInputElement>): number {
   const value = parseFloat(event.target.value);
@@ -35,17 +18,6 @@ export function nanIsZero(event: React.ChangeEvent<HTMLInputElement>): number {
     return 0;
   }
   return value;
-}
-
-export function convertToFixed<T extends Volume | Mass | Length | Area>(
-  amount: Converter<number, T>,
-  from: T,
-  to: T,
-): string {
-  if (from === to) {
-    return amount.to(to).toString();
-  }
-  return amount.to(to).toFixed(4);
 }
 
 export function controlAndLabel(controlName: string, label: string, inputElement: JSX.Element) {
@@ -67,7 +39,7 @@ export function controlAndLabel(controlName: string, label: string, inputElement
 
 export default class App extends React.Component<
   Record<string, never>,
-  AppState
+  Record<string, never>
 > {
   constructor(props: Record<string, never>) {
     super(props);
@@ -75,7 +47,6 @@ export default class App extends React.Component<
   }
 
   render(): React.ReactElement {
-    const rest: [AppState, {(newState: AppState): void}] = [this.state, (x: AppState) => this.setState(x)];
     const items = [1, 2, 3, 4, 5, 6, 7].map((x) => x.toString());
     return (
       <Container fluid>
@@ -84,83 +55,14 @@ export default class App extends React.Component<
           open={items}
           stayOpen
         >
-          <AccordionItem>
-            <AccordionHeader targetId="1">
-              Volume
-            </AccordionHeader>
-            <AccordionBody accordionId="1">
-              <Row>
-                {volumeControl('litres', ...rest)}
-                {volumeControl('fluidOunces', ...rest)}
-                {volumeControl('usQuarts', ...rest)}
-                {volumeControl('usGallons', ...rest)}
-                {volumeControl('imperialGallons', ...rest)}
-              </Row>
-            </AccordionBody>
-          </AccordionItem>
+          <GenericControl units={volumeUnits} heading="Volume" id="1" />
+          <GenericControl units={weightUnits} heading="Weight" id="2" />
+          <GenericControl units={lengthUnits} heading="Length" id="3" />
+          <GenericControl units={distanceUnits} heading="Distance" id="4" />
+          <GenericControl units={areaUnits} heading="Distance" id="5" />
 
-          <AccordionItem>
-            <AccordionHeader targetId="2">
-              Weight
-            </AccordionHeader>
-            <AccordionBody accordionId="2">
-              <Row>
-                {weightControl('kilograms', ...rest)}
-                {weightControl('ounces', ...rest)}
-                {weightControl('pounds', ...rest)}
-                {weightControl('tons', ...rest)}
-                {weightControl('tonnes', ...rest)}
-              </Row>
-            </AccordionBody>
-          </AccordionItem>
-
-          <AccordionItem>
-            <AccordionHeader targetId="3">
-              Length
-            </AccordionHeader>
-            <AccordionBody accordionId="3">
-              <Row>
-                {lengthControl('meters', ...rest)}
-                {lengthControl('centimeters', ...rest)}
-                {lengthControl('inches', ...rest)}
-                {lengthControl('feet', ...rest)}
-                {lengthControl('yards', ...rest)}
-              </Row>
-            </AccordionBody>
-          </AccordionItem>
-
-          <AccordionItem>
-            <AccordionHeader targetId="4">
-              Distance
-            </AccordionHeader>
-            <AccordionBody accordionId="4">
-              <Row>
-                {distanceControl('meters', ...rest)}
-                {distanceControl('kilometers', ...rest)}
-                {distanceControl('feet', ...rest)}
-                {distanceControl('yards', ...rest)}
-                {distanceControl('miles', ...rest)}
-              </Row>
-            </AccordionBody>
-          </AccordionItem>
-
-          <AccordionItem>
-            <AccordionHeader targetId="5">
-              Area
-            </AccordionHeader>
-            <AccordionBody accordionId="5">
-              <Row>
-                {areaControl('squareMeters', ...rest)}
-                {areaControl('squareFeet', ...rest)}
-                {areaControl('squareYards', ...rest)}
-                {areaControl('hectares', ...rest)}
-                {areaControl('acres', ...rest)}
-              </Row>
-            </AccordionBody>
-          </AccordionItem>
-
-          <GenericControl units={frameWireUnits} heading="Frame Wires" />
-          <GenericControl units={frameNailUnits} heading="Frame Nails" />
+          <GenericControl units={frameWireUnits} heading="Frame Wires" id="6" />
+          <GenericControl units={frameNailUnits} heading="Frame Nails" id="7" />
 
         </UncontrolledAccordion>
       </Container>
