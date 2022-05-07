@@ -1,3 +1,8 @@
+import React from 'react';
+import {
+  AccordionItem, AccordionHeader, AccordionBody, Row,
+} from 'reactstrap';
+import { controlAndLabel, nanIsZero } from '../App';
 import { FrameNailUnitName } from './frameNails';
 import { FrameWireUnitName } from './frameWire';
 
@@ -12,6 +17,16 @@ export type UnitName =
 export type CustomUnit = {
   ratio: number;
   label: string;
+}
+
+export interface UnitState {
+  value: string,
+  unit: CustomUnit2
+}
+
+export interface CustomUnit2 extends CustomUnit {
+  family: string,
+  name: string,
 }
 
 export class CustomConverter<T extends CustomUnit> {
