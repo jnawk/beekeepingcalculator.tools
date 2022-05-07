@@ -49,7 +49,7 @@ export function convertToFixed<T extends Volume | Mass | Length | Area>(
 
 export function controlAndLabel(controlName: string, label: string, inputElement: JSX.Element) {
   return (
-    <Col xs={12} md={1}>
+    <Col xs={12} lg={3} xxl={2}>
       <Row>
         <label htmlFor={controlName}>
           <Col xs={12}>
