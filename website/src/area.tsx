@@ -1,7 +1,5 @@
 import React from 'react';
-import './App.css';
 import convert, { Area } from 'convert';
-import 'bootstrap/dist/css/bootstrap.css';
 import {
   nanIsZero, convertToFixed, AppState, controlAndLabel, Details,
 } from './App';

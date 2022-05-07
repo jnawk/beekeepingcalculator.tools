@@ -1,6 +1,4 @@
 import React from 'react';
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.css';
 import convert from 'convert';
 import {
   nanIsZero, AppState, controlAndLabel, Details,
@@ -76,6 +74,7 @@ export function convertToFixed<T extends FrameWireControl>(
   }
   return amount.to(to).toFixed(4);
 }
+
 function convertFrameWire(
   event: React.ChangeEvent<HTMLInputElement>,
   from: FrameWireControl,
