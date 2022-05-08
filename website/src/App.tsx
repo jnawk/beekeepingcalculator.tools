@@ -12,6 +12,7 @@ import volumeUnits from './volumeUnits';
 import weightUnits from './weightUnits';
 import areaUnits from './areaUnits';
 import frameWiringTimeUnits from './customConverter/frameWiringTime';
+import superNailsUnits from './customConverter/superNails';
 
 export default class App extends React.Component<
   Record<string, never>,
@@ -23,7 +24,7 @@ export default class App extends React.Component<
   }
 
   render(): React.ReactElement {
-    const items = [1, 2, 3, 4, 5, 6, 7, 8].map((x) => x.toString());
+    const items = [1, 2, 3, 4, 5, 6, 7, 8, 9].map((x) => x.toString());
     return (
       <Container fluid>
         <UncontrolledAccordion
@@ -40,6 +41,7 @@ export default class App extends React.Component<
           <GenericControl units={frameWireUnits} heading="Frame Wires" id="6" />
           <GenericControl units={frameNailUnits} heading="Frame Nails" id="7" />
           <GenericControl units={frameWiringTimeUnits} heading="Frame Wiring Time" id="8" />
+          <GenericControl units={superNailsUnits} heading="Super Nails" id="9" />
 
         </UncontrolledAccordion>
       </Container>
