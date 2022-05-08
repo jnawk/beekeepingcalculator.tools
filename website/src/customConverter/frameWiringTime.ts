@@ -1,4 +1,3 @@
-import convert from 'convert';
 import { CustomUnit } from './customConverter';
 
 type FrameWiringTimeUnitName =
