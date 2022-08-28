@@ -1,7 +1,7 @@
 import { Stack, StackProps, Stage, StageProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as cdk from 'aws-cdk-lib';
-import {   
+import {
   pipelines,
   custom_resources,
   aws_certificatemanager as acm,
@@ -24,7 +24,7 @@ const config = {
 
 export class PipelineStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
-    super(scope, id, props);  
+    super(scope, id, props);
       const pipeline = new pipelines.CodePipeline(this, "Pipeline", {
           publishAssetsInParallel: false,
           synth: new pipelines.ShellStep("Synth", { input: pipelines.CodePipelineSource.connection(config.source_repository_path, config.source_repository_branch, {
@@ -40,7 +40,7 @@ export class PipelineStack extends Stack {
         selfMutation: true
       })
 
-      pipeline.addStage(new DeploymentStage(this, "Deployment"))
+      pipeline.addStage(new DeploymentStage(this, "BeeKeepingToolsDeployment"))
   }
 }
 
@@ -65,7 +65,7 @@ export class DeploymentStage extends Stage {
 
 export class CertificateStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
-    super(scope, id, props);  
+    super(scope, id, props);
     const certificate = new acm.Certificate(this, "Certificate", {
       domainName: config.domainName,
       validation: acm.CertificateValidation.fromDns(
@@ -86,7 +86,7 @@ export class WebsiteStack extends Stack {
     super(scope, id, props);
 
     const websiteBucket = new s3.Bucket(this, 'WebsiteBucket', {versioned: true})
-    
+
     const certificate_arn_lookup = new custom_resources.AwsCustomResource(this, "CertificateArnLookup", {
       onCreate: {
         action: "getParameter",
@@ -104,7 +104,7 @@ export class WebsiteStack extends Stack {
           'us-east-1',
           cdk.Aws.ACCOUNT_ID,
           ["parameter", config.certificate_arn_parameter_name].join("")
-        ].join(":")                
+        ].join(":")
         ]}),
     })
     const certificate = acm.Certificate.fromCertificateArn(this, "Certificate", certificate_arn_lookup.getResponseField("Parameter.Value"))
@@ -132,7 +132,7 @@ export class WebsiteStack extends Stack {
     new s3deploy.BucketDeployment(this, "DeployWebsite", {
       sources: [ s3deploy.Source.asset("./website/build")],
       destinationBucket: websiteBucket,
-      distribution, 
+      distribution,
       distributionPaths: ["/*"],
     })
   }
